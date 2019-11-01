@@ -34,11 +34,8 @@ class TicTacToe
   end
 
   def position_taken?(index)
-     if @board[index]=="X" || @board[index]=="O"
-       return true
-     else
-       return false
-     end
+      @board[index]=="X" || @board[index]=="O"
+
   end
 
   def valid_move?(input)
@@ -56,6 +53,7 @@ class TicTacToe
   end
 
   def turn
+    puts "Pick a number between 1-9!"
     input=gets.strip
     index= self.input_to_index(input)
     if self.valid_move?(index)
@@ -67,12 +65,15 @@ class TicTacToe
   end
 
   def won?
-    WIN_COMBINATIONS.each do |combo| 
-      if @board[combo[0]] != " " && @board[combo[0]]  == @board[combo[1]] && @board[combo[1]]  == @board[combo[2]] 
-        return combo
-      end 
-    end  
-    false
+    
+    WIN_COMBINATIONS.find { |combo| @board[combo[0]] != " " && @board[combo[0]]  == @board[combo[1]] && @board[combo[1]]  == @board[combo[2]] }
+    # WIN_COMBINATIONS.each do |combo| 
+      
+    #   if @board[combo[0]] != " " && @board[combo[0]]  == @board[combo[1]] && @board[combo[1]]  == @board[combo[2]] 
+    #     return combo
+    #   end 
+    # end  
+    # false
   end
   
   def full? 
@@ -88,14 +89,15 @@ class TicTacToe
   end 
   
   def winner
-    WIN_COMBINATIONS.each do |combo| 
-      if @board[combo[0]] == "X" && @board[combo[1]] == "X" && @board[combo[2]] == "X"
-         return"X"
-      elsif @board[combo[0]] == "O" && @board[combo[1]] == "O" && @board[combo[2]] == "O"
-        return  "O"
-    end
-    end
-    nil
+      won? ? @board[won?[0]] : nil 
+    # WIN_COMBINATIONS.each do |combo| 
+    #   if @board[combo[0]] == "X" && @board[combo[1]] == "X" && @board[combo[2]] == "X"
+    #     return"X"
+    #   elsif @board[combo[0]] == "O" && @board[combo[1]] == "O" && @board[combo[2]] == "O"
+    #     return  "O"
+    #   end
+    # end
+    # nil
   end
   
   def play 
